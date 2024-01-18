@@ -5,6 +5,7 @@ import GitlabProvider from 'next-auth/providers/gitlab'
 import GoogleProvider from 'next-auth/providers/google'
 import FacebookProvider from 'next-auth/providers/facebook'
 import AzureADProvider from 'next-auth/providers/azure-ad'
+import Auth0Provider from 'next-auth/providers/auth0'
 import prisma from '@typebot.io/lib/prisma'
 import { Provider } from 'next-auth/providers'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -97,6 +98,20 @@ if (
       clientId: env.AZURE_AD_CLIENT_ID,
       clientSecret: env.AZURE_AD_CLIENT_SECRET,
       tenantId: env.AZURE_AD_TENANT_ID,
+    })
+  )
+}
+
+if (env.AUTH0_CLIENT_ID && env.AUTH0_CLIENT_SECRET && env.AUTH0_DOMAIN) {
+  providers.push(
+    Auth0Provider({
+      clientId: env.AUTH0_CLIENT_ID,
+      clientSecret: env.AUTH0_CLIENT_SECRET,
+      issuer: `https://${env.AUTH0_DOMAIN}`,
+      authorization: {
+        params: { scope: 'openid profile email offline_access' },
+      },
+      allowDangerousEmailAccountLinking: true,
     })
   )
 }

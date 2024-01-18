@@ -113,6 +113,13 @@ const githubEnv = {
     GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
   },
 }
+const auth0Env = {
+  server: {
+    AUTH0_DOMAIN: z.string().min(1).optional(),
+    AUTH0_CLIENT_ID: z.string().min(1).optional(),
+    AUTH0_CLIENT_SECRET: z.string().min(1).optional(),
+  },
+}
 
 const facebookEnv = {
   server: {
@@ -355,6 +362,7 @@ export const env = createEnv({
   server: {
     ...baseEnv.server,
     ...githubEnv.server,
+    ...auth0Env.server,
     ...facebookEnv.server,
     ...smtpEnv.server,
     ...googleEnv.server,

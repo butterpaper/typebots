@@ -42,6 +42,7 @@ export const SocialLoginButtons = ({ providers }: Props) => {
 
   const handleGitHubClick = () => handleSignIn('github')
 
+  const handleAuth0Click = () => handleSignIn('auth0')
   const handleGoogleClick = () => handleSignIn('google')
 
   const handleFacebookClick = () => handleSignIn('facebook')
@@ -80,6 +81,20 @@ export const SocialLoginButtons = ({ providers }: Props) => {
           variant="outline"
         >
           {t('auth.socialLogin.googleButton.label')}
+        </Button>
+      )}
+      {providers?.auth0 && (
+        <Button
+          leftIcon={<GoogleLogo />}
+          onClick={handleAuth0Click}
+          data-testid="auth0"
+          isLoading={
+            ['loading', 'authenticated'].includes(status) ||
+            authLoading === 'auth0'
+          }
+          variant="outline"
+        >
+          {t('auth.socialLogin.auth0Button.label')}
         </Button>
       )}
       {providers?.facebook && (
